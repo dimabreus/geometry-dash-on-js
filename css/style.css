@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+#canvas {
+    width: 500px;
+    height: 300px;
+    border: 1px solid black;
+    position: relative;
+}
+
+#player {
+    width: 50px;
+    height: 50px;
+    background: lightgreen;
+    position: absolute;
+    bottom: 0px;
+}
+
+.obs{
+    width: 25px;
+    height: 25px;
+    background: red;
+    position: absolute;
+    bottom: 0px;
+    left: 250px;
+}

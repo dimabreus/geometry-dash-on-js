@@ -1,29 +1,29 @@
-const player = document.querySelector("#player")
-const obs = document.querySelector(".obs")
+import obstacles from "./levels/compiler.js";
 
+const player = document.querySelector("#player")
 
 const screenW = 500;
 const screenH = 300;
 
-let playerX = 0;
+let playerX = 150;
 const playerW = 50;
 const playerH = 50;
 
-const playerSpeed = 3
+const playerSpeed = 1
 
 let direction = "stop"
 let pressed;
 
 let space_pressed;
 
-let obsX = 250;
-let obsY = 0;
+let directionInterval;
+
+const fps = 144;
 
 const playerBottom = () => parseInt(getComputedStyle(player).bottom)
 
 window.onkeydown = (e) => {
     if (e.code === "Space") {
-        console.log(player.style.bottom)
         space_pressed = true
 
     } else if (e.code === "KeyD") {
@@ -66,19 +66,47 @@ directionInterval = setInterval(() => {
         }
     }
 
-    // console.log(obsY + 25 < playerBottom())
-    // console.log(obsY > playerBottom() + playerH)
 
-    if (obsX < (playerX + playerW) && (obsX + 25) > playerX){
-        // if(obsY > (playerBottom() + playerH) && (obsY + 25) < playerBottom()){
-        if (playerBottom() < obsY + 25){
-            obs.style.background = "blue"
+    obstacles.forEach(el => {
+
+        // let el = {
+        //     left: 50 + 12.5,
+        //     right: 50 + 12.5 + 25,
+        //     top: 0 + 40,
+        //     bottom: 0,
+        //     w: 25,
+        //     h: 40,
+        //     style: document.querySelector(".obs-1").style,
+        //     elem: document.querySelector(".obs-1")
+        // }
+        if (Math.min(el.left, el.right) < Math.max(playerX, playerX + playerW) &&
+            Math.max(el.left, el.right) > Math.min(playerX, playerX + playerW) &&
+            Math.min(el.top, el.bottom) < Math.max(playerBottom() + playerH, playerBottom()) &&
+            Math.max(el.top, el.bottom) > Math.min(playerBottom() + playerH, playerBottom())) {
+            el.style.background = "blue"
         }
-    }
+    })
 
-    
-    obs.style.left = `${obsX}px`
-    obs.style.bottom = `${obsY}px`
 
-}, 10)
+
+    // obstacles.forEach((el, i) => {
+    //     el.left -= 3;
+    //     el.style = el.elem.style;
+
+    //     el.right = el.left + el.w
+
+    //     if (el.left < -25) {
+    //         document.querySelector("#canvas").removeChild(el.elem)
+    //         obstacles.splice(i, 1)
+    //     }
+    // })
+
+
+    // obstacles.forEach(el => {
+    //     el.style.left = `${el.left}px`
+    //     el.style.bottom = `${el.bottom}px`
+    // })
+
+
+}, 1000 / fps)
 

@@ -1,10 +1,12 @@
+@import url(./root.css);
+
 @keyframes jump {
     0% {
         bottom: 0px;
     }
 
     50% {
-        bottom: 50px;
+        bottom: var(--jumpHeight);
     }
 
     100% {

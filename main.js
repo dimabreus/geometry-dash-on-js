@@ -1,6 +1,12 @@
 import obstacles from "./levels/compiler.js";
 
-const player = document.querySelector("#player")
+jumper_audio.play()
+
+const player = document.querySelector("#player");
+const canvas = document.querySelector("#canvas");
+const spaceBtn = document.querySelector("#space");
+const aBtn = document.querySelector("#btnA");
+const dBtn = document.querySelector("#btnD");
 
 const screenW = 500;
 const screenH = 300;
@@ -9,104 +15,96 @@ let playerX = 150;
 const playerW = 50;
 const playerH = 50;
 
-const playerSpeed = 1
+const playerSpeed = 3
 
-let direction = "stop"
-let pressed;
+window.direction = "stop";
+window.pressed;
 
-let space_pressed;
-
-let directionInterval;
+window.space_pressed;
 
 const fps = 144;
 
-const playerBottom = () => parseInt(getComputedStyle(player).bottom)
+const checkCollision = (element1, element2, margin = -1) => {
+    const rect1 = element1.getBoundingClientRect();
+    const rect2 = element2.getBoundingClientRect();
 
-window.onkeydown = (e) => {
-    if (e.code === "Space") {
-        space_pressed = true
+    return !(
+        rect1.right + margin < rect2.left ||
+        rect1.left - margin > rect2.right ||
+        rect1.bottom + margin < rect2.top ||
+        rect1.top - margin > rect2.bottom
+    );
+}
 
-    } else if (e.code === "KeyD") {
-        pressed = e.code
-        direction = "right"
-    } else if (e.code === "KeyA") {
-        pressed = e.code
-        direction = "left"
+const changeIcon = (icon) => {
+    if (icon === "icon_01") {
+
+    } else if (icon === "icon_02") {
+
     }
 }
 
-window.onkeyup = e => {
-    if (e.code == pressed) {
-        direction = "stop"
-    } else if (e.code === "Space" && space_pressed) {
-        space_pressed = false
-    }
-}
 
-directionInterval = setInterval(() => {
-    if (direction === "right") {
+
+let lastFrameTimeMs = 0;
+
+const gameLoop = (timestamp) => {
+    const delta = timestamp - lastFrameTimeMs;
+    lastFrameTimeMs = timestamp;
+
+    if (window.direction === "right") {
         if (playerX + playerW + playerSpeed <= screenW) {
             playerX += playerSpeed
             player.style.left = `${playerX}px`
         }
-    } else if (direction === "left") {
+    } else if (window.direction === "left") {
         if (playerX - playerSpeed >= 0) {
             playerX -= playerSpeed
             player.style.left = `${playerX}px`
         }
     }
 
-    if (space_pressed) {
+    if (window.space_pressed) {
         if (parseInt(getComputedStyle(player).bottom) === 0) {
             player.style.animation = "0.5s ease jump"
 
             setTimeout(() => {
-                player.style.animation = 0
+                player.style.animation = ""
             }, 510)
         }
     }
 
 
     obstacles.forEach(el => {
-
-        // let el = {
-        //     left: 50 + 12.5,
-        //     right: 50 + 12.5 + 25,
-        //     top: 0 + 40,
-        //     bottom: 0,
-        //     w: 25,
-        //     h: 40,
-        //     style: document.querySelector(".obs-1").style,
-        //     elem: document.querySelector(".obs-1")
-        // }
-        if (Math.min(el.left, el.right) < Math.max(playerX, playerX + playerW) &&
-            Math.max(el.left, el.right) > Math.min(playerX, playerX + playerW) &&
-            Math.min(el.top, el.bottom) < Math.max(playerBottom() + playerH, playerBottom()) &&
-            Math.max(el.top, el.bottom) > Math.min(playerBottom() + playerH, playerBottom())) {
+        if (checkCollision(player, el.elem.childNodes[0])) {
             el.style.background = "blue"
         }
     })
 
 
 
-    // obstacles.forEach((el, i) => {
-    //     el.left -= 3;
-    //     el.style = el.elem.style;
+    obstacles.forEach((el, i) => {
+        el.left -= 500 * (delta / 1000);
+        el.style = el.elem.style;
 
-    //     el.right = el.left + el.w
+        el.right = el.left + el.w
+        el.top = el.bottom + el.h
 
-    //     if (el.left < -25) {
-    //         document.querySelector("#canvas").removeChild(el.elem)
-    //         obstacles.splice(i, 1)
-    //     }
-    // })
-
-
-    // obstacles.forEach(el => {
-    //     el.style.left = `${el.left}px`
-    //     el.style.bottom = `${el.bottom}px`
-    // })
+        if (el.left < -25) {
+            canvas.removeChild(el.elem)
+            obstacles.splice(i, 1)
+        }
+    })
 
 
-}, 1000 / fps)
+    obstacles.forEach(el => {
+        el.style.left = `${el.left}px`
+        el.style.bottom = `${el.bottom}px`
+    })
 
+    // document.body.style.setProperty('--playerCurrentY', '250px ');
+
+    requestAnimationFrame(gameLoop);
+}
+
+requestAnimationFrame(gameLoop);

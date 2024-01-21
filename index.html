@@ -16,13 +16,45 @@
             <div id="player"></div>
         </div>
     </div>
+<!-- Дим, в стиль.цсс -->
+    <div class="wrapper">
+        <button id="space">Space</button>
+    </div>
 
     <div class="wrapper">
+        <button id="btnA">A</button>
+        <button id="btnD">D</button>
+    </div>
+
+    <div>
         <button type="button">cheat</button>
     </div>
 
+    <div class="icon">
+        <select name="icon" id="player_icon" onchange="changeIcon(this.value)">
+            <option value="icon_01" selected>icon 01</option>
+            <option value="standart">standart</option>
+            <option value="icon_02">icon 2</option>
+        </select>
+    </div>
 
+    <div class="debug">
+        <!-- <button onclick="changeTheme(this)" id="Theme">Поменять тему</button> -->
+        <p>debug:</p>
+        <select id="debug" onchange="changeDebug(this.value)">
+            <option value="1" selected>отключить показ хитбоксов</option>
+            <option value="2">включить показ хитбоксов</option>
+        </select>
+    </div>
+
+    <audio src="audio/Jumper.mp3" id="jumper_audio"></audio>
+
+    <script src="handle.js"></script>
+    <script src="events.js"></script>
     <script type="module" src="main.js"></script>
 </body>
+<!-- ЧТО С ship.svg? -->
 
+<!-- Кинь мне остальные icon'ы -->
+<!-- @.bduidan -->
 </html>

@@ -1,3 +1,5 @@
 :root{
     --jumpHeight: 150px;
+    --playerCurrentY: 0px;
+    --hitbox: unset;
 }

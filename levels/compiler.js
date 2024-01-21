@@ -13,18 +13,21 @@ a.forEach((el, i) => {
     newDiv.classList.add(`obs${i}`)
 
     obstacles.push({
-        left: el.x,
-        right: el.x + 25,
+        left: el.x + 12.5,
+        right: el.x + 12.5 + 25,
         top: el.y + 40,
         bottom: el.y,
         w: 25,
         h: 40,
+        rotate: el.rotate,
         style: newDiv.style,
         elem: newDiv
     })
 
     newDiv.style.left = `${el.x}px`;
     newDiv.style.bottom = `${el.y}px`;
+
+    newDiv.style.transform = `rotate(${el.rotate}deg)`
 
     canvas.appendChild(newDiv);
 

@@ -1,1 +1,3 @@
-# geometry-dash-on-js
+# Geometry Dash на чистом js
+
+### Находится в разработке

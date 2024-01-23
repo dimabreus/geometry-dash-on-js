@@ -5,3 +5,11 @@ const changeDebug = (debug) => {
         document.body.style.setProperty('--hitbox', 'lightblue')
     }
 }
+
+const changeIcon = (icon) => {
+    if (icon === "icon_01") {
+
+    } else if (icon === "icon_02") {
+
+    }
+}

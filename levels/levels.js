@@ -153,4 +153,10 @@ export default [
         rotate: 180
     },
 
+    {
+        type: "block",
+        x: 250,
+        y: 0,
+    }
+
 ]

@@ -4,7 +4,7 @@ body {
     margin: 0;
 }
 
-.wrapper{
+.wrapper {
     margin-top: 50px;
     display: flex;
     justify-content: center;
@@ -16,7 +16,7 @@ body {
     border: 1px solid black;
     background: url(../img/bg_01.svg);
     position: relative;
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 #player {
@@ -31,7 +31,7 @@ body {
     /* надо  */
     position: absolute;
     bottom: 0px;
-    left: 150px; 
+    left: 150px;
     z-index: 2;
 }
 
@@ -42,7 +42,7 @@ body {
     background: url(../img/ship_02.svg);
 }
 
-.obs>div{
+.obs>div {
     width: 25px;
     height: 40px;
     position: absolute;
@@ -57,6 +57,8 @@ body {
 }
 
 .block {
+    width: 50px;
+    height: 50px;
     position: absolute;
     background-color: green;
-  }
+}

@@ -11,8 +11,8 @@ body {
 }
 
 #canvas {
-    width: 500px;
-    height: 300px;
+    width: 700px;
+    height: 500px;
     border: 1px solid black;
     background: url(../img/bg_01.svg);
     position: relative;
